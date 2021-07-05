@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import AppNavigator from './AppNavigator';
+
+const AppContainer = createAppContainer(AppNavigator);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Fuck you!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppContainer />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'stretch',
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
+    paddingLeft: 16,
+    paddingRight: 16
+  }
 });
