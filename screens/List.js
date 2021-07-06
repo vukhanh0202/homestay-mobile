@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native';
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import Thumnail from '../components/Thumnail';
 import apartments from '../constant/apartment';
 
-export default function List() {
-    const navigationOptions = {
-        title: 'Danh Sách'
-    };
+List['navigationOptions'] = navigation => ({
+    title: 'Danh Sách'
+})
+export default function List({ navigation }) {
     return (
         <FlatList
             data={apartments}
@@ -14,17 +14,26 @@ export default function List() {
             numColumns={2}
             renderItem={({ item }) =>
                 <View style={styles.wrapper}>
-                    <Thumnail product={item} />
+                    <Thumnail product={item}
+                        onPress={() =>
+                            navigation.navigate('ApartmentDetail', {
+                                item: item,
+                                title: item.title
+                            })
+                        }
+                    />
                 </View>
             }
-            keyExtractor={(item) => `${item.id}`} />
+            keyExtractor={(item) => `${item.id}`}
+        />
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 8,
-        paddingTop: 16
+        paddingTop: 16,
+        paddingBottom: 16
     },
     wrapper: {
         flex: 1,

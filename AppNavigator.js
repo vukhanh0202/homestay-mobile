@@ -18,7 +18,8 @@ const color = {
 
 const HomeStack = createStackNavigator({
     Home,
-    ApartmentDetail
+    ApartmentDetail,
+    List
 });
 HomeStack.navigationOptions = {
     tabBarLabel: 'Trang Chủ',
@@ -30,7 +31,8 @@ HomeStack.navigationOptions = {
     }
 };
 const ListStack = createStackNavigator({
-    List
+    List,
+    ApartmentDetail
 });
 ListStack.navigationOptions = {
     tabBarLabel: 'Danh Sách',

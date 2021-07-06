@@ -5,16 +5,18 @@ import {
     StatusBar,
     StyleSheet,
     Text,
-    View,
+    View
 } from 'react-native';
-import COLORS from '../constant/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import COLORS from '../constant/colors';
 
-const ApartmentDetail = ({ navigation, route }) => {
-    const navigationOptions = {
-        title: 'Chi tiết'
-    };
-    const item = route.params;
+
+ApartmentDetail['navigationOptions'] = ({ navigation }) => ({
+    title: navigation.getParam('title')
+})
+export default function ApartmentDetail({ navigation, screenProps }) {
+    const item = navigation.getParam('item')
+    console.log(navigation.getParam('title'));
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -27,15 +29,9 @@ const ApartmentDetail = ({ navigation, route }) => {
                 translucent
                 backgroundColor="rgba(0,0,0,0)"
             />
-            <ImageBackground style={style.headerImage} source={item.image}>
+            <ImageBackground style={style.headerImage} source={item.img}>
                 <View style={style.header}>
-                    <Icon
-                        name="arrow-back-ios"
-                        size={28}
-                        color={COLORS.white}
-                        onPress={navigation.goBack}
-                    />
-                    <Icon name="bookmark-border" size={28} color={COLORS.white} />
+                    <Icon name="favorite-outline" size={28} color={COLORS.white} />
                 </View>
             </ImageBackground>
             <View>
@@ -43,7 +39,7 @@ const ApartmentDetail = ({ navigation, route }) => {
                     <Icon name="place" color={COLORS.white} size={28} />
                 </View>
                 <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.title}</Text>
                     <Text
                         style={{
                             fontSize: 12,
@@ -51,7 +47,7 @@ const ApartmentDetail = ({ navigation, route }) => {
                             color: COLORS.grey,
                             marginTop: 5,
                         }}>
-                        {item.location}
+                        {item.type} - {item.bedroom}
                     </Text>
                     <View
                         style={{
@@ -71,11 +67,11 @@ const ApartmentDetail = ({ navigation, route }) => {
                                 4.0
                             </Text>
                         </View>
-                        <Text style={{ fontSize: 13, color: COLORS.grey }}>365reviews</Text>
+                        <Text style={{ fontSize: 13, color: COLORS.grey }}>365 reviews</Text>
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ lineHeight: 20, color: COLORS.grey }}>
-                            {item.details}
+                            {item.description}
                         </Text>
                     </View>
                 </View>
@@ -88,7 +84,7 @@ const ApartmentDetail = ({ navigation, route }) => {
                         alignItems: 'center',
                     }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        Price per night
+                        Giá Phòng/ Đêm
                     </Text>
                     <View style={style.priceTag}>
                         <Text
@@ -98,30 +94,19 @@ const ApartmentDetail = ({ navigation, route }) => {
                                 color: COLORS.grey,
                                 marginLeft: 5,
                             }}>
-                            ${item.price}
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: 12,
-                                fontWeight: 'bold',
-                                color: COLORS.grey,
-                                marginLeft: 5,
-                            }}>
-                            +breakfast
+                            {item.price}đ
                         </Text>
                     </View>
                 </View>
                 <View style={style.btn}>
                     <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
-                        Book Now
+                        Đặt Phòng Ngay
                     </Text>
                 </View>
             </View>
         </ScrollView>
-
     );
 }
-
 const style = StyleSheet.create({
     btn: {
         height: 55,
@@ -166,8 +151,8 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginHorizontal: 20,
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
     },
 });
 
-export default ApartmentDetail;
+

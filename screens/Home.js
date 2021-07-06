@@ -1,50 +1,53 @@
 import React from 'react';
 import {
     Dimensions,
-    FlatList,
-    SafeAreaView,
+    FlatList, Image, SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-    Image,
-    Animated,
+    Text, View, TouchableOpacity
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../constant/colors';
-import hotels from '../constant/apartment';
 import Thumnail from '../components/Thumnail';
 import apartments from '../constant/apartment';
+import categories from '../constant/category';
+import COLORS from '../constant/colors';
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
-export default function Home() {
-    const navigationOptions = {
-        title: 'Trang Chủ'
-    };
-    const TopHotelCard = ({ hotel }) => {
+Home['navigationOptions'] = screenProps => ({
+    title: 'Trang Chủ'
+})
+export default function Home({ navigation }) {
+    const TopHotelCard = ({ category, onPress }) => {
         return (
-            <View style={style.topHotelCard}>
-                <View
-                    style={{
+            <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+                <View style={style.topHotelCard}>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 5,
+                            right: 5,
+                            zIndex: 1,
+                            flexDirection: 'row',
+                        }}>
+                    </View>
+                    <Image style={style.topHotelCardImage} source={category.img} />
+                    <View style={{
                         position: 'absolute',
-                        top: 5,
+                        bottom: 5,
                         right: 5,
-                        zIndex: 1,
-                        flexDirection: 'row',
+                        backgroundColor: 'transparent',
+                        paddingVertical: 5,
+                        paddingHorizontal: 10,
+                        alignItems: 'flex-end'
                     }}>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.white }}>{category.address}</Text>
+                        <Text style={{ fontSize: 9, fontWeight: 'bold', color: COLORS.white_light }}>
+                            {category.number} Chỗ ở
+                        </Text>
+                    </View>
                 </View>
-                <Image style={style.topHotelCardImage} source={hotel.image} />
-                <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-                    <Text style={{ fontSize: 10, fontWeight: 'bold' }}>{hotel.name}</Text>
-                    <Text style={{ fontSize: 7, fontWeight: 'bold', color: COLORS.grey }}>
-                        {hotel.location}
-                    </Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         );
     };
     return (
@@ -58,12 +61,10 @@ export default function Home() {
                         <Text style={{ fontSize: 30, fontWeight: 'bold' }}>tại </Text>
                         <Text
                             style={{ fontSize: 30, fontWeight: 'bold', color: COLORS.primary }}>
-                            Homestay Travel
+                            HOMESTAY TRAVEL
                         </Text>
                     </View>
                 </View>
-            </View>
-            <View style={{ height: 10, borderColor: 'red', borderStyle: '1px solid red' }}>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View
@@ -75,18 +76,24 @@ export default function Home() {
                     <Text style={{ fontWeight: 'bold', color: COLORS.grey }}>
                         Địa điểm nổi bật
                     </Text>
-                    <Text style={{ color: COLORS.grey }}>Show all</Text>
                 </View>
                 <FlatList
-                    data={hotels}
+                    data={categories}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{
-                        paddingLeft: 20,
-                        marginTop: 20,
-                        paddingBottom: 30,
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                        marginTop: 10,
+                        paddingBottom: 20,
                     }}
-                    renderItem={({ item }) => <TopHotelCard hotel={item} />}
+                    renderItem={({ item }) => <TopHotelCard category={item}
+                        onPress={() =>
+                            navigation.navigate('List', {
+                                item: item,
+                            })
+                        }
+                    />}
                 />
                 <View
                     style={{
@@ -97,16 +104,27 @@ export default function Home() {
                     <Text style={{ fontWeight: 'bold', color: COLORS.grey }}>
                         Homestay hấp dẫn hôm nay
                     </Text>
-                    <Text style={{ color: COLORS.grey }}>Show all</Text>
+                    <TouchableOpacity activeOpacity={0.8} onPress={() =>
+                        navigation.navigate('List', {
+                        })
+                    }>
+                        <Text style={{ color: COLORS.grey }}>Show all</Text>
+                    </TouchableOpacity>
                 </View>
                 <View>
                     <FlatList
-                        data={apartments}
+                        data={apartments.slice(5, 13)}
                         contentContainerStyle={style.container}
                         numColumns={2}
-                        renderItem={({ item }) => <Thumnail product={item} />}
+                        renderItem={({ item }) => <Thumnail product={item}
+                            onPress={() =>
+                                navigation.navigate('ApartmentDetail', {
+                                    item: item,
+                                    title: item.title
+                                })
+                            }
+                        />}
                         keyExtractor={(item) => `${item.id}`} />
-
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -116,7 +134,9 @@ export default function Home() {
 const style = StyleSheet.create({
     container: {
         paddingHorizontal: 8,
-        paddingTop: 16
+        paddingTop: 0,
+        paddingLeft: 8,
+        paddingRight: 8
     },
     wrapper: {
         flex: 1,
@@ -129,17 +149,17 @@ const style = StyleSheet.create({
         paddingHorizontal: 20,
     },
     topHotelCard: {
-        height: 120,
-        width: 120,
+        height: 140,
+        width: 100,
         backgroundColor: COLORS.white,
         elevation: 15,
-        marginHorizontal: 10,
+        marginHorizontal: 5,
         borderRadius: 10,
+        position: 'relative'
     },
     topHotelCardImage: {
-        height: 80,
+        height: 140,
         width: '100%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
+        borderRadius: 10,
     },
 });

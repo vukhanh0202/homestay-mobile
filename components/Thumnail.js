@@ -10,11 +10,12 @@ import COLORS from '../constant/colors';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 2.2;
-const Thumnail = ({ product }) => {
+const Thumnail = ({ product, onPress }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
-            style={{ marginTop: 10 }}>
+            style={{ marginTop: 10 }}
+            onPress={onPress}>
             <View style={{ ...style.card }}>
                 <View style={style.priceTag}>
                     <Text
@@ -22,19 +23,22 @@ const Thumnail = ({ product }) => {
                         {product.price}đ
                     </Text>
                 </View>
-                <Image source={product.image} style={style.cardImage} />
+                <Image source={product.img} style={style.cardImage} />
                 <View style={style.cardDetails}>
                     <View
-                        style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ paddingLeft: 10 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-                                {product.name}
+                        style={{ position: 'relative', width: '100%' }}>
+                        <View style={{ paddingLeft: 5, position: 'absolute', left: 0, top: 0 }}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                            }}>
+                                {product.title.substring(0, 14)}
                             </Text>
                             <Text style={{ color: COLORS.grey, fontSize: 10 }}>
-                                {product.location}
+                                {product.type} - {product.people}
                             </Text>
                         </View>
-                        <Icon name="favorite-outline" style={{ paddingRight: 5 }} size={26} color={COLORS.primary} />
+                        <Icon name="favorite-outline" style={{ position: 'absolute', right: 0, top: 0, paddingRight: 5 }} size={26} color={COLORS.primary} />
                     </View>
                 </View>
             </View>
@@ -59,7 +63,7 @@ const style = StyleSheet.create({
     },
     priceTag: {
         height: 30,
-        width: 80,
+        width: 90,
         backgroundColor: COLORS.primary,
         position: 'absolute',
         zIndex: 1,
@@ -75,9 +79,10 @@ const style = StyleSheet.create({
         backgroundColor: COLORS.white,
         position: 'absolute',
         bottom: 5,
-        left: 0,
+        left: '2%',
         paddingTop: 15,
-        width: '100%',
+        width: '96%',
+        alignItems: 'center'
     },
 });
 
