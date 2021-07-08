@@ -18,7 +18,7 @@ export default function Loading({ loading }) {
 
 const styles = StyleSheet.create({
     overlay: {
-        ...StyleSheet.absoluteFill,
+        ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         alignItems: 'center',
         justifyContent: 'center',

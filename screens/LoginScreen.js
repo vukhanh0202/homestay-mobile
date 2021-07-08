@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AuthContainer from '../components/AuthContainer';
+import Error from '../components/Error';
+import FilledButton from '../components/FilledButton';
 import Heading from '../components/Heading';
 import Input from '../components/Input';
-import FilledButton from '../components/FilledButton';
-import TextButton from '../components/TextButton';
-import Error from '../components/Error';
-import AuthContainer from '../components/AuthContainer';
-import { AuthContext } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import TextButton from '../components/TextButton';
 import COLORS from '../constant/colors';
+import { AuthContext } from '../contexts/AuthContext';
+
 
 LoginScreen['navigationOptions'] = screenProps => ({
     title: 'Đăng Nhập'
@@ -27,13 +27,13 @@ export default function LoginScreen({ navigation }) {
         <AuthContainer>
             <TouchableOpacity
                 activeOpacity={0.8}
-                style={{ marginTop: 10 }}
+                style={styles.homeIcon}
                 onPress={async () => {
                     directHome();
                 }}>
-                <Icon name="favorite-outline" size={28} color={COLORS.primary} />
+                <Icon name="md-home-sharp" size={28} color={COLORS.primary} />
             </TouchableOpacity>
-            <Heading style={styles.title}>LOGIN</Heading>
+            <Heading style={styles.title}>ĐĂNG NHẬP</Heading>
             <Error error={error} />
             <Input
                 style={styles.input}
@@ -50,7 +50,7 @@ export default function LoginScreen({ navigation }) {
                 onChangeText={setPassword}
             />
             <FilledButton
-                title={'Login'}
+                title={'ĐĂNG NHẬP'}
                 style={styles.loginButton}
                 onPress={async () => {
                     try {
@@ -62,13 +62,17 @@ export default function LoginScreen({ navigation }) {
                     }
                 }}
             />
-            <TextButton
-                title={'Have u an account? Create one'}
-                onPress={() => {
-                    navigation.navigate('Registration');
-                }}
-            />
             <Loading loading={loading} />
+            <View style={styles.row}>
+                <Text style={styles.textInactive}>Bạn Chưa Có Tài Khoản? </Text>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                        navigation.navigate('Registration');
+                    }}>
+                    <Text style={styles.textActive}>Tạo Ngay </Text>
+                </TouchableOpacity>
+            </View>
         </AuthContainer>
     );
 }
@@ -82,5 +86,24 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         marginVertical: 32,
+        backgroundColor: COLORS.primary
+    },
+    homeIcon: {
+        position: 'absolute',
+        top: 16,
+        right: 16,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textInactive: {
+        fontSize: 16,
+        color: COLORS.dark,
+    },
+    textActive: {
+        fontSize: 16,
+        color: COLORS.primary,
+        fontWeight: 700
     },
 });

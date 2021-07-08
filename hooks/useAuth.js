@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { createAction } from '../utils/createAction';
 import { sleep } from '../utils/sleep';
 import Storage from './../storage/Storage';
@@ -64,6 +65,7 @@ export default function useAuth() {
             },
             register: async (email, password) => {
                 await sleep(2000);
+                Alert.alert("Đăng ký thành công");
             },
             directLogin: async () => {
                 const isLogin = {

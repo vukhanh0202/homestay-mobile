@@ -1,17 +1,19 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AuthContainer from '../components/AuthContainer';
+import Error from '../components/Error';
+import FilledButton from '../components/FilledButton';
 import Heading from '../components/Heading';
 import Input from '../components/Input';
-import FilledButton from '../components/FilledButton';
-import Error from '../components/Error';
-import IconButton from '../components/IconButton';
-import AuthContainer from '../components/AuthContainer';
-import { AuthContext } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
+import COLORS from '../constant/colors';
+import { AuthContext } from '../contexts/AuthContext';
+
 
 export default function RegistrationScreen({ navigation }) {
     const { register } = React.useContext(AuthContext);
+    const { directHome } = React.useContext(AuthContext);
     const [email, setEmail] = React.useState('bithovendev@gmail.com');
     const [password, setPassword] = React.useState('abc');
     const [loading, setLoading] = React.useState(false);
@@ -19,14 +21,15 @@ export default function RegistrationScreen({ navigation }) {
 
     return (
         <AuthContainer>
-            <IconButton
-                style={styles.closeIcon}
-                name={'close-circle-outline'}
-                onPress={() => {
-                    navigation.pop();
-                }}
-            />
-            <Heading style={styles.title}>REGISTRATION</Heading>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.homeIcon}
+                onPress={async () => {
+                    directHome();
+                }}>
+                <Icon name="md-home-sharp" size={28} color={COLORS.primary} />
+            </TouchableOpacity>
+            <Heading style={styles.title}>ĐĂNG KÝ</Heading>
             <Error error={error} />
             <Input
                 style={styles.input}
@@ -43,7 +46,7 @@ export default function RegistrationScreen({ navigation }) {
                 onChangeText={setPassword}
             />
             <FilledButton
-                title={'Register'}
+                title={'ĐĂNG KÝ'}
                 style={styles.loginButton}
                 onPress={async () => {
                     try {
@@ -57,6 +60,16 @@ export default function RegistrationScreen({ navigation }) {
                 }}
             />
             <Loading loading={loading} />
+            <View style={styles.row}>
+                <Text style={styles.textInactive}>Bạn Đã Có Tài Khoản? </Text>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                        navigation.navigate('Login');
+                    }}>
+                    <Text style={styles.textActive}>Đăng Nhập</Text>
+                </TouchableOpacity>
+            </View>
         </AuthContainer>
     );
 }
@@ -71,9 +84,22 @@ const styles = StyleSheet.create({
     loginButton: {
         marginVertical: 32,
     },
-    closeIcon: {
+    homeIcon: {
         position: 'absolute',
-        top: 60,
+        top: 16,
         right: 16,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textInactive: {
+        fontSize: 16,
+        color: COLORS.dark,
+    },
+    textActive: {
+        fontSize: 16,
+        color: COLORS.primary,
+        fontWeight: 700
     },
 });

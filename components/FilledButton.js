@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import COLORS from '../constant/colors';
 
 export default function FilledButton({ title, style, onPress }) {
     return (
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         borderRadius: 8,
-        backgroundColor: 'red'
+        backgroundColor: COLORS.primary
     },
     text: {
         color: 'white',
