@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Dimensions, Image, StyleSheet,
     Text, TouchableOpacity,
@@ -11,38 +11,51 @@ import COLORS from '../constant/colors';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 2.2;
 const Thumnail = ({ product, onPress }) => {
+    const [favourite, setFavourite] = useState(product.favourite)
     return (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            style={{ marginTop: 10 }}
-            onPress={onPress}>
+        <View style={{ marginTop: 10 }}>
             <View style={{ ...style.card }}>
-                <View style={style.priceTag}>
-                    <Text
-                        style={{ color: COLORS.white, fontSize: 14, fontWeight: 'bold' }}>
-                        {product.price}đ
-                    </Text>
-                </View>
-                <Image source={product.img} style={style.cardImage} />
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={onPress}>
+                    <View style={style.priceTag}>
+                        <Text
+                            style={{ color: COLORS.white, fontSize: 14, fontWeight: 'bold' }}>
+                            {product.price}đ
+                        </Text>
+                    </View>
+                    <Image source={product.img} style={style.cardImage} />
+                </TouchableOpacity>
                 <View style={style.cardDetails}>
-                    <View
-                        style={{ position: 'relative', width: '100%' }}>
-                        <View style={{ paddingLeft: 5, position: 'absolute', left: 0, top: 0 }}>
-                            <Text style={{
-                                fontWeight: 'bold',
-                                fontSize: 14,
-                            }}>
-                                {product.title.substring(0, 14)}
-                            </Text>
-                            <Text style={{ color: COLORS.grey, fontSize: 10 }}>
-                                {product.type} - {product.people}
-                            </Text>
-                        </View>
-                        <Icon name="favorite-outline" style={{ position: 'absolute', right: 0, top: 0, paddingRight: 5 }} size={26} color={COLORS.primary} />
+                    <View style={{ position: 'relative', width: '100%' }}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={onPress}>
+                            <View style={{ paddingLeft: 5, position: 'absolute', left: 0, top: 0 }}>
+                                <Text style={{
+                                    fontWeight: 'bold',
+                                    fontSize: 14,
+                                }}>
+                                    {product.title.substring(0, 14)}
+                                </Text>
+                                <Text style={{ color: COLORS.grey, fontSize: 10 }}>
+                                    {product.type} - {product.people}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => setFavourite(!favourite)}>
+                            {favourite === true ?
+                                <Icon name="favorite" style={{ position: 'absolute', right: 0, top: 0, paddingRight: 5 }} size={26} color={COLORS.primary} />
+                                :
+                                <Icon name="favorite-outline" style={{ position: 'absolute', right: 0, top: 0, paddingRight: 5 }} size={26} color={COLORS.primary} />
+                            }
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 };
 

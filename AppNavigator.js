@@ -55,6 +55,7 @@ FavouriteStack.navigationOptions = {
 };
 const AccountStack = createStackNavigator({ Account });
 AccountStack.navigationOptions = {
+    headerShown: false,
     tabBarLabel: 'Tài Khoản',
     tabBarIcon: ({ focused }) => {
         return <Icon name="ios-cog"
