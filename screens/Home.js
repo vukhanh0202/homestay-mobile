@@ -4,15 +4,12 @@ import {
     FlatList, Image, SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text, View, TouchableOpacity
+    Text, TouchableOpacity, View
 } from 'react-native';
 import Thumnail from '../components/Thumnail';
 import apartments from '../constant/apartment';
 import categories from '../constant/category';
 import COLORS from '../constant/colors';
-
-const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.8;
 
 Home['navigationOptions'] = screenProps => ({
     title: 'Trang Chủ'

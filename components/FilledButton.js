@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { color } from 'react-native-reanimated';
 
 export default function FilledButton({ title, style, onPress }) {
     return (

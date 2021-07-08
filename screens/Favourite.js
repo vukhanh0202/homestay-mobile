@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react';
 import {
     ImageBackground,
     ScrollView,
     StatusBar,
     StyleSheet,
     Text,
-    View,
+    View
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import apartments from '../constant/apartment';
 import COLORS from '../constant/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 Favourite['navigationOptions'] = screenProps => ({
     title: 'Yêu Thích'

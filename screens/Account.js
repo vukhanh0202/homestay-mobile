@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native';
-import { UserContext } from '../contexts/UserContext';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import FilledButton from '../components/FilledButton';
 import { AuthContext } from '../contexts/AuthContext';
-import Storage from './../storage/Storage'
+import { UserContext } from '../contexts/UserContext';
 
 Account['navigationOptions'] = screenProps => ({
     title: 'Tài Khoản'

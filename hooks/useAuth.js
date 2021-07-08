@@ -1,9 +1,7 @@
 import React from 'react';
-import SecureStorage from 'react-native-secure-storage';
-
 import { createAction } from '../utils/createAction';
 import { sleep } from '../utils/sleep';
-import Storage from './../storage/Storage'
+import Storage from './../storage/Storage';
 
 export default function useAuth() {
     const [state, dispatch] = React.useReducer(

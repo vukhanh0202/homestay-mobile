@@ -5,10 +5,10 @@ import {
     createBottomTabNavigator
 } from 'react-navigation-tabs';
 import Account from './screens/Account';
+import ApartmentDetail from './screens/ApartmentDetail';
 import Favourite from './screens/Favourite';
 import Home from './screens/Home';
 import List from './screens/List';
-import ApartmentDetail from './screens/ApartmentDetail';
 
 
 const color = {
