@@ -12,7 +12,7 @@ export default function Account({ navigation }) {
     const { directLogin } = React.useContext(AuthContext);
     const user = React.useContext(UserContext)
     return (
-        <View>
+        <View style={{ backgroundColor: '#FFFFFF', height: '100%' }}>
             <Text>Tài khoản</Text>
             {user != undefined ?
                 <FilledButton

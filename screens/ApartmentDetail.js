@@ -19,6 +19,7 @@ export default function ApartmentDetail({ navigation, screenProps }) {
     console.log(navigation.getParam('title'));
     return (
         <ScrollView
+            style={{ backgroundColor: '#FFFFFF' }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
                 backgroundColor: COLORS.white,

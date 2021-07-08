@@ -9,6 +9,7 @@ List['navigationOptions'] = navigation => ({
 export default function List({ navigation }) {
     return (
         <FlatList
+            style={{ backgroundColor: '#FFFFFF', height: '100%' }}
             data={apartments}
             contentContainerStyle={styles.container}
             numColumns={2}

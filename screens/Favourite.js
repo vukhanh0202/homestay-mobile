@@ -1,155 +1,96 @@
 import React from 'react';
 import {
-    ImageBackground,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
+    FlatList, Image, StyleSheet,
     Text,
     View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import FilledButton from '../components/FilledButton';
+import Thumnail from '../components/Thumnail';
 import apartments from '../constant/apartment';
 import COLORS from '../constant/colors';
+import { AuthContext } from '../contexts/AuthContext';
+import { UserContext } from '../contexts/UserContext';
 
 Favourite['navigationOptions'] = screenProps => ({
-    title: 'Yêu Thích'
+    title: 'Danh Sách Yêu Thích'
 })
 export default function Favourite() {
-    const item = apartments[0];
+    const { directLogin } = React.useContext(AuthContext);
+    const user = React.useContext(UserContext);
     return (
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-                backgroundColor: COLORS.white,
-                paddingBottom: 20,
-            }}>
-            <StatusBar
-                barStyle="light-content"
-                translucent
-                backgroundColor="rgba(0,0,0,0)"
-            />
-            <ImageBackground style={style.headerImage} source={item.img}>
-                <View style={style.header}>
-                    <Icon name="favorite-outline" size={28} color={COLORS.white} />
-                </View>
-            </ImageBackground>
-            <View>
-                <View style={style.iconContainer}>
-                    <Icon name="place" color={COLORS.white} size={28} />
-                </View>
-                <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.title}</Text>
-                    <Text
-                        style={{
-                            fontSize: 12,
-                            fontWeight: '400',
-                            color: COLORS.grey,
-                            marginTop: 5,
-                        }}>
-                        {item.type}
-                    </Text>
-                    <View
-                        style={{
-                            marginTop: 10,
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Icon name="star" size={20} color={COLORS.orange} />
-                                <Icon name="star" size={20} color={COLORS.orange} />
-                                <Icon name="star" size={20} color={COLORS.orange} />
-                                <Icon name="star" size={20} color={COLORS.orange} />
-                                <Icon name="star" size={20} color={COLORS.grey} />
-                            </View>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 5 }}>
-                                4.0
-                            </Text>
+        <View style={{ backgroundColor: '#FFFFFF', height: '100%' }}>
+            {user !== undefined ?
+                <FlatList
+                    data={apartments.slice(10, 16)}
+                    contentContainerStyle={styles.containerList}
+                    numColumns={2}
+                    renderItem={({ item }) =>
+                        <View style={styles.wrapper}>
+                            <Thumnail product={item}
+                                onPress={() =>
+                                    navigation.navigate('ApartmentDetail', {
+                                        item: item,
+                                        title: item.title
+                                    })
+                                }
+                            />
                         </View>
-                        <Text style={{ fontSize: 13, color: COLORS.grey }}>365reviews</Text>
+                    }
+                    keyExtractor={(item) => `${item.id}`}
+                />
+                :
+                <View style={styles.container}>
+                    <Image
+                        style={styles.stretch}
+                        source={require('./../img/favourite.jpg')}
+                    />
+                    <View style={styles.row}>
+                        <Text style={styles.text}>Đăng nhập để thêm và quản lý căn hộ yêu thích </Text>
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ lineHeight: 20, color: COLORS.grey }}>
-                            {item.description}
-                        </Text>
-                    </View>
+                    <FilledButton
+                        title={'ĐĂNG NHẬP'}
+                        style={styles.loginButton}
+                        onPress={async () => {
+                            directLogin();
+                        }}
+                    />
                 </View>
-                <View
-                    style={{
-                        marginTop: 20,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        paddingLeft: 20,
-                        alignItems: 'center',
-                    }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        Giá Phòng/ Đêm
-                    </Text>
-                    <View style={style.priceTag}>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                fontWeight: 'bold',
-                                color: COLORS.grey,
-                                marginLeft: 5,
-                            }}>
-                            {item.price}đ
-                        </Text>
-                    </View>
-                </View>
-                <View style={style.btn}>
-                    <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
-                        Đặt Phòng Ngay
-                    </Text>
-                </View>
-            </View>
-        </ScrollView>
+            }
+        </View>
     );
 }
-const style = StyleSheet.create({
-    btn: {
-        height: 55,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40,
-        backgroundColor: COLORS.primary,
-        marginHorizontal: 20,
-        borderRadius: 10,
+const styles = StyleSheet.create({
+    containerList: {
+        paddingHorizontal: 8,
+        paddingTop: 16,
+        paddingBottom: 16
     },
-
-    priceTag: {
-        height: 40,
-        alignItems: 'center',
-        marginLeft: 40,
-        paddingLeft: 20,
-        flex: 1,
-        backgroundColor: COLORS.secondary,
-        borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 20,
-        flexDirection: 'row',
-    },
-    iconContainer: {
-        position: 'absolute',
-        height: 60,
-        width: 60,
-        backgroundColor: COLORS.primary,
-        top: -30,
-        right: 20,
-        borderRadius: 30,
-        justifyContent: 'center',
+    container: {
+        paddingTop: 50,
+        backgroundColor: '#FFFFFF',
+        height: '100%',
         alignItems: 'center',
     },
-    headerImage: {
-        height: 400,
-        borderBottomRightRadius: 40,
-        borderBottomLeftRadius: 40,
-        overflow: 'hidden',
+    stretch: {
+        width: '100%',
+        height: 200,
+        resizeMode: 'stretch',
     },
-    header: {
-        marginTop: 60,
+    row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginHorizontal: 20,
-        justifyContent: 'flex-end',
+        width: '100%',
+        paddingTop: 32
+    },
+    text: {
+        fontSize: 16,
+        color: COLORS.dark,
+        textAlign: 'center',
+        width: '100%'
+    },
+    loginButton: {
+        paddingTop: 24,
+        marginVertical: 32,
+        width: '80%',
     },
 });
