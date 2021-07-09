@@ -14,14 +14,14 @@ import { UserContext } from '../contexts/UserContext';
 Favourite['navigationOptions'] = screenProps => ({
     title: 'Danh Sách Yêu Thích'
 })
-export default function Favourite() {
+export default function Favourite({ navigation }) {
     const { directLogin } = React.useContext(AuthContext);
     const user = React.useContext(UserContext);
     return (
         <View style={{ backgroundColor: '#FFFFFF', height: '100%' }}>
             {user !== undefined ?
                 <FlatList
-                    data={apartments.slice(10, 16)}
+                    data={apartments.filter(item => item.favourite === true)}
                     contentContainerStyle={styles.containerList}
                     numColumns={2}
                     renderItem={({ item }) =>

@@ -171,7 +171,7 @@ const apartments = [
         bedroom: "1 Phòng Ngủ",
         price: "480.000",
         priceInt: 480000,
-        favourite: false,
+        favourite: true,
         description: 'Nếu bạn đang tìm một Homestay hiện đại, trong lành với đầy đủ tiện nghi tiêu chuẩn thì Villa Viet Home là lựa chọn hoàn hảo. Mở cửa sổ mỗi buổi sáng, sương sớm lành lạnh hòa quyện với hương thơm cây cối sẽ tràn vào cả căn nhà. Đó sẽ là trải nghiệm tuyệt vời,1 làn gió tươi mới cho cuộc sống vốn đã rất bận rộn và căng thẳng.'
 
     },
@@ -213,7 +213,7 @@ const apartments = [
         bedroom: "1 Phòng Ngủ",
         price: "1.200.000",
         priceInt: 1200000,
-        favourite: false,
+        favourite: true,
         description: 'Nếu bạn đang tìm một Homestay hiện đại, trong lành với đầy đủ tiện nghi tiêu chuẩn thì Villa Viet Home là lựa chọn hoàn hảo. Mở cửa sổ mỗi buổi sáng, sương sớm lành lạnh hòa quyện với hương thơm cây cối sẽ tràn vào cả căn nhà. Đó sẽ là trải nghiệm tuyệt vời,1 làn gió tươi mới cho cuộc sống vốn đã rất bận rộn và căng thẳng.'
 
     },

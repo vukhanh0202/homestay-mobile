@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import FilledButton from '../components/FilledButton';
 import COLORS from '../constant/colors';
 import { AuthContext } from '../contexts/AuthContext';
 import { UserContext } from '../contexts/UserContext';
-import Icon from 'react-native-vector-icons/Ionicons';
-import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 
 Account['navigationOptions'] = screenProps => ({
     title: 'Tài Khoản'
@@ -31,11 +31,11 @@ export default function Account({ navigation }) {
                                 />
                             </View>
                             <View style={styles.profileWrapper}>
-                                <Text style={{ fontSize: 14, fontWeight: 600 }}>Vũ Khánh</Text>
-                                <Text style={{ fontSize: 18, fontWeight: 600, color: COLORS.primary }}>ktpm2018@uit.edu.vn</Text>
+                                <Text style={{ fontSize: 14, fontWeight: '600' }}>Vũ Khánh</Text>
+                                <Text style={{ fontSize: 18, fontWeight: '600', color: COLORS.primary }}>ktpm2018@uit.edu.vn</Text>
                                 <FilledButton
                                     title={'ĐĂNG XUẤT'}
-                                    style={styles.logoutIn}
+                                    style={styles.logoutButton}
                                     onPress={async () => {
                                         logout();
                                     }}
@@ -77,11 +77,11 @@ export default function Account({ navigation }) {
                                 />
                             </View>
                             <View style={styles.profileWrapper}>
-                                <Text style={{ fontSize: 14, fontWeight: 600 }}>Trở thành thành viên</Text>
-                                <Text style={{ fontSize: 18, fontWeight: 600, color: COLORS.primary }}>Nhận ngay ưu đãi</Text>
+                                <Text style={{ fontSize: 14, fontWeight: '600' }}>Trở thành thành viên</Text>
+                                <Text style={{ fontSize: 18, fontWeight: '600', color: COLORS.primary }}>Nhận ngay ưu đãi</Text>
                                 <FilledButton
                                     title={'ĐĂNG NHẬP'}
-                                    style={styles.logoutIn}
+                                    style={styles.logoutButton}
                                     onPress={async () => {
                                         directLogin();
                                     }}
@@ -89,13 +89,14 @@ export default function Account({ navigation }) {
                             </View>
                         </View>
                     </View>
-                    <Image
-                        style={styles.letLogin}
-                        source={require('./../img/let_login.png')}
-                    />
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            style={styles.letLogin}
+                            source={require('./../img/let_login.png')}
+                        />
+                    </View>
                 </View>
             }
-
         </View >
 
     );
@@ -103,14 +104,22 @@ export default function Account({ navigation }) {
 
 const styles = StyleSheet.create({
     logoutButton: {
-        marginVertical: 33,
-    },
-    logoutIn: {
-        marginVertical: 33,
-        width: '80%',
+        width: '70%',
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 14,
+        marginTop: 10,
         height: 35,
-        marginTop: 10
+        padding: 8
+    },
+    logInButton: {
+        width: '70%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        marginTop: 10,
+        height: 35,
+        padding: 8
     },
     container: {
         width: '100%',
@@ -143,6 +152,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        zIndex: 10000
     },
     row: {
         flexDirection: 'row',
@@ -165,18 +175,18 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         resizeMode: 'stretch',
-        borderRadius: '50%',
+        borderRadius: 100,
     },
     profileWrapper: {
         width: '60%',
         alignItems: 'flex-start',
-        paddingTop: 60,
+        paddingTop: 30,
         paddingBottom: 30
     },
     letLogin: {
-        width: '100%',
-        height: 250,
-        marginTop: '45%',
+        width: '80%',
+        height: 270,
+        marginTop: '28%',
         resizeMode: 'stretch',
     },
     title: {

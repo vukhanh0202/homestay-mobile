@@ -14,8 +14,8 @@ import { AuthContext } from '../contexts/AuthContext';
 export default function RegistrationScreen({ navigation }) {
     const { register } = React.useContext(AuthContext);
     const { directHome } = React.useContext(AuthContext);
-    const [email, setEmail] = React.useState('bithovendev@gmail.com');
-    const [password, setPassword] = React.useState('abc');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
 
@@ -51,8 +51,12 @@ export default function RegistrationScreen({ navigation }) {
                 onPress={async () => {
                     try {
                         setLoading(true);
-                        await register(email, password);
-                        navigation.pop();
+                        let result = await register(email, password);
+                        if (result === true) {
+                            navigation.pop();
+                        } else {
+                            setLoading(false);
+                        }
                     } catch (e) {
                         setError(e.message);
                         setLoading(false);
@@ -86,8 +90,8 @@ const styles = StyleSheet.create({
     },
     homeIcon: {
         position: 'absolute',
-        top: 16,
-        right: 16,
+        top: 32,
+        right: 24,
     },
     row: {
         flexDirection: 'row',
@@ -100,6 +104,6 @@ const styles = StyleSheet.create({
     textActive: {
         fontSize: 16,
         color: COLORS.primary,
-        fontWeight: 700
+        fontWeight: '700'
     },
 });

@@ -88,6 +88,7 @@ export default function Home({ navigation }) {
                         onPress={() =>
                             navigation.navigate('List', {
                                 item: item,
+                                title: item.address
                             })
                         }
                     />}

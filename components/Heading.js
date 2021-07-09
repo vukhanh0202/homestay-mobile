@@ -13,7 +13,7 @@ export default function Heading({ children, style, ...props }) {
 const styles = StyleSheet.create({
     text: {
         fontSize: 32,
-        fontWeight: 700,
+        fontWeight: '700',
         color: COLORS.primary
     },
 });

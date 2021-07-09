@@ -3,8 +3,8 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import Thumnail from '../components/Thumnail';
 import apartments from '../constant/apartment';
 
-List['navigationOptions'] = navigation => ({
-    title: 'Danh Sách'
+List['navigationOptions'] = ({ navigation }) => ({
+    title: navigation.getParam('title') ? `Homestay ở ${navigation.getParam('title')}` : 'Danh Sách'
 })
 export default function List({ navigation }) {
     return (
